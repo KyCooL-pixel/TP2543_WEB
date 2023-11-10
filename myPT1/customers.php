@@ -1,6 +1,6 @@
-<!DOCTYPE html> == $0
+<!DOCTYPE html>
 <html><head>
-  <title>My Bike Ordering System : Customers</title>
+  <title>My BasketBall Ordering System : Customers</title>
 </head>
 <body>
   <center>
