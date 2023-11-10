@@ -1,0 +1,103 @@
+<!--
+Matric Number: A123456
+Name: Mohammad Faidzul Nasrudin
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Extra Work</title>
+</head>
+
+<body>
+    <h1>Extra Work Form</h1>
+    <hr>
+    <form action="http://lrgs.ftsm.ukm.my/users/a123456/week3lab/validate_biodata.php" method="post" enctype="multipart/form-data">
+        <table border="1" cellpadding="10">
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" required="true" name="name" placeholder="Insert your name" pattern="[A-Za-z ]+" autofocus></td>
+            </tr>
+            <tr>
+                <td>Age:</td>
+                <td><input type="number" required="true" name="age" min="0" max="100" step="1"></td>
+            </tr>
+            <tr>
+                <td>Sex:</td>
+                <td>
+                    <span>
+                        <input id="male" type="radio" required="true" name="sex" value="male" checked>
+                        <label for="male">Male</label>
+                    </span>
+                    <span>
+                        <input id="female" type="radio" name="sex"
+                        value="female">
+                        <label for="female">Female</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td><textarea name="address" required="true" cols="50" rows="5" placeholder="Insert your address"></textarea></td>
+            </tr>
+            <tr>
+                <td>
+                    Email:
+                </td>
+                <td>
+                    <input type="email" required="true" name="email" placeholder="Insert your email" pattern=".*@.*ukm.*">
+            </tr>
+            <tr>
+                <td>Date of Birth:</td>
+                <td><input type="datetime-local" required="true" name="dob"></td>
+            </tr>
+            <tr>
+                <td>
+                    Height:
+                </td>
+                <td>
+                    <input type="range" disabled="true" required="true" name="height" id="heightId" min="100" max="200" value="150"
+                        oninput="outputId.value = heightId.value"><output id="outputId">150</output>cm
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Tel:
+                </td>
+                <td>
+                    <input type="tel" required="true" name="phone" placeholder="+60######### or 0060#########" pattern="(\+60|0060)\d{8,9}">
+                </td>
+            </tr>
+            <tr>
+                <td>My Favorite Color:</td>
+                <td><input type="color" required="true" name="color" value="#00ff00"></td>
+            </tr>
+            <tr>
+                <td>Fb/TW/IG:</td>
+                <td><input type="url" required="true" name="fbtwig"></td>
+            </tr>
+            <tr>
+                <td>My Face Photo:</td>
+                <td><input type="file" required="true" name="photo" accept="image/*"></td>
+            </tr>
+            <tr>
+                <td>My University:</td>
+                <td><select name="university" required="true">
+                        <option value="UKM" selected>Universiti Kebangsaan Malaysia</option>
+                        <option value="UM">Universiti Malaya</option>
+                        <option value="UPM">Universiti Putra Malaysia</option>
+                        <option value="UTM">Universiti Teknologi Malaysia</option>
+                    </select>
+                </td>
+            </tr>
+            <!-- complete the rest of form here -->
+        </table>
+        <hr>
+        <input type="hidden" name="matricnum" value="a189479">
+        <button type="submit" name="biodata_form">Submit My Biodata</button>
+        <button type="reset">Reset</button>
+    </form>
+
+</body>
+
+</html>
