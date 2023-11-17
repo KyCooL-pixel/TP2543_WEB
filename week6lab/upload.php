@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $target_dir = "picture/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    echo $_FILES["fileToUpload"]["tmp_name"];
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
