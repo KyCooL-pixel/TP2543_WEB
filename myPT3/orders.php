@@ -21,7 +21,7 @@ include_once 'orders_crud.php';
         <div class="page-header">
           <h2>Create New Order</h2>
         </div>
-        <form action="orders.php" method="post">
+        <form action="orders.php" method="post" class="form-horizontal">
 
           <div class="form-group">
             <label for="oid" class="col-sm-3 control-label">ID</label>
