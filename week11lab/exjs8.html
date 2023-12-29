@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function createArray(para1,para2,para3,para4,para5){
+                var arr = [para1,para2,para3,para4,para5];
+                var ele = document.getElementById("text");
+                if(ele != null){
+                    ele.innerHTML = arr;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <p id="text"></p>
+        <input type="button" value="click me to check output" onclick="return createArray(2,4,8,77,21)">
+    </body>
+</html>

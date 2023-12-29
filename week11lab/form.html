@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JavaScript Form Validation</title>
+    <style>
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 10px 0px 10px 0px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            font: 100% Lucida Sans, Verdana;
+        }
+
+        body {
+            font: 100% Lucida Sans, Verdana;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type=submit],
+        input[type=reset],
+        button {
+            background-color: blue;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form action="#" method="post">
+        <label for="id_name">Name:</label>
+        <input type="text" name="name" id="id_name" required>
+
+        <label for="id_mycard">MyCard Number:</label>
+        <div><input type="text" name="mycard" id="id_mycard" style="width: 80%" required pattern="^\d{12}$">
+            <button type="button" name="search" id="is_search" style="width:19%" onclick="check_mycard()">Validate
+                MyCard</button>
+        </div>
+
+        <label for="id_dob">DOB:</label>
+        <input type="text" name="dob" id="id_dob" required>
+
+        <label for="id_state">State of Birth:</label>
+        <select name="state" id="id_state" required>
+            <option>Select</option>
+            <option value="01">Johor</option>
+            <option value="02">Kedah</option>
+            <option value="03">Kelantan</option>
+            <option value="04">Melaka</option>
+            <option value="05">Negeri Sembilan</option>
+            <option value="06">Pahang</option>
+            <option value="08">Perak</option>
+            <option value="09">Perlis</option>
+            <option value="07">Pulau Pinang</option>
+            <option value="12">Sabah</option>
+            <option value="13">Sarawak</option>
+            <option value="10">Selangor</option>
+            <option value="11">Terengganu</option>
+            <option value="14">Wilayah Persekutuan - Kuala Lumpur</option>
+            <option value="15">Wilayah Persekutuan - Labuan</option>
+            <option value="16">Wilayah Persekutuan - Putrajaya</option>
+        </select>
+
+        <label for="id_sex">Sex:</label>
+        <select name="place" id="id_sex" required>
+            <option>Select</option>
+            <option value="m">Male</option>
+            <option value="f">Female</option>
+        </select>
+
+        <label for="id_myself">Describe About Yourself:</label>
+        <textarea name="myself" id="id_myself" rows="5" required></textarea>
+
+        <input type="submit" name="js_form" value="Submit">
+        <input type="reset">
+    </form>
+
+</body>
+
+</html>
+<script>
+    function setSelectedValue(selectObj, valueToSet) {
+        for (var i = 0; i < selectObj.options.length; i++) {
+            if (selectObj.options[i].value == valueToSet) {
+                selectObj.options[i].selected = true;
+                return;
+            }
+        }
+    }
+    function isEven(value) {
+        if (value % 2 == 0)
+            return true;
+        else
+            return false;
+    }
+
+    function transformDateFormat(inputDate) {
+        // Extract day, month, and year components
+        let day = inputDate.slice(0, 2);
+        let month = inputDate.slice(2, 4);
+        let year = inputDate.slice(4);
+
+        // Create the transformed date string in the format "yy/mm/dd"
+        let transformedDate = year + '/' + month + '/' + day;
+
+        return transformedDate;
+    }
+    function check_mycard() {
+        console.log("function called");
+        var mycard = document.getElementById("id_mycard").value;
+        var mycard_pattern = /^\d{12}$/;
+        if (mycard_pattern.test(mycard)) {
+            var dobvalue = mycard.substring(0, 6);
+            dobvalue = transformDateFormat(dobvalue);
+            // console.log(dobvalue)
+            var DOB = document.getElementById("id_dob");
+            DOB.value = dobvalue;
+            var statevalue = mycard.substring(6,8);
+            // console.log(statevalue)
+            var state = document.getElementById("id_state");
+            setSelectedValue(state, statevalue);
+            var sexvalue = parseInt(mycard.slice(-1), 10);
+            // console.log(sexvalue)
+            var sex = document.getElementById("id_sex");
+            setSelectedValue(sex, sexvalue % 2 == 0 ? "f" : "m");
+        }
+        else {
+            alert("MyCard is invalid");
+        }
+    }
+</script>

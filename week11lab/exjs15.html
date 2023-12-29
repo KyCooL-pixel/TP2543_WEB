@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function twoDimensionalArray() {
+            var employees = [["Honey", 25, "30000"], ["Raj", 30, "40000"], ["Rani", 28, "35000"]];
+            var i;
+            for (i = 0; i < employees.length; i++) {
+                document.write("Name: " + employees[i][0] + " Age: " + employees[i][1] + " Salary: " + employees[i][2] + "<br>");
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="click me to check output" onclick="return twoDimensionalArray();">
+</body>
+</html>

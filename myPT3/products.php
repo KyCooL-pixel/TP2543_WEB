@@ -79,9 +79,9 @@ include_once 'products_crud.php';
             </div>
           </div>
           <div class="form-group">
-            <label for="productq" class="col-sm-3 control-label">Year Of Warranty</label>
+            <label for="warranty" class="col-sm-3 control-label">Year Of Warranty</label>
             <div class="col-sm-9">
-              <input name="warranty" type="number" class="form-control" id="productq" placeholder="Year Of Warranty"
+              <input name="warranty" type="number" class="form-control" id="warranty" placeholder="Year Of Warranty"
                 value="<?php if (isset($_GET['edit']))
                   echo $editrow['fld_product_warranty']; ?>" min="0" required>
             </div>

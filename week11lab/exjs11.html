@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function check(){
+                var i;var arr=[];
+                for(i=0;i<25;i++){
+                    arr[i]=Math.floor((Math.random()*25)+1);
+                }
+                var search = prompt("Enter a number b/w 1 to 25 to search in array");
+                var count=0;
+                for(i=0;i<25;i++){
+                    if(arr[i]==search){
+                        count++;
+                    }
+                }
+                document.write("Array elements are: ");
+                for(i=0;i<25;i++){
+                    document.write(arr[i] + " ");
+                }
+                if(count){
+                    document.write("<br>Number of times "+search+" appears in array is "+count);
+                }
+                else{
+                    document.write("<br>"+search+" does not appear in array");
+                }
+
+            }
+        </script>
+    </head>
+    <body>
+        <p id="text"></p>
+        <input type="button" value="click me to proceed" onclick="return check()">
+    </body>
+</html>

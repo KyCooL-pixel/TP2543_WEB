@@ -38,7 +38,7 @@ include_once 'customers_crud.php';
           </div>
 
           <div class="form-group">
-            <label for="lname" class="col-sm-3 control-label">First Name</label>
+            <label for="lname" class="col-sm-3 control-label">Last Name</label>
             <div class="col-sm-9">
               <input name="lname" type="text" class="form-control" id="lname" placeholder="Last Name" value="<?php if (isset($_GET['edit']))
                 echo $editrow['fld_customer_lname']; ?>"> <br>
