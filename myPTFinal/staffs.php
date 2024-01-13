@@ -2,8 +2,11 @@
 Matric Number: A189479
 Name: CHEOK KAH YEEK
 -->
+
 <?php
   include_once 'staffs_crud.php';
+  include_once 'redirect.php';
+  include_once 'auth_level.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,7 +22,7 @@ Name: CHEOK KAH YEEK
 <body>
   <?php include_once 'nav_bar.php'; ?>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row" >
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <div class="page-header">
           <h2>Create New Staff</h2>
@@ -112,8 +115,8 @@ Name: CHEOK KAH YEEK
                 <button class="btn btn-default" type="submit" name="update"><span class="glyphicon glyphicon-pencil"
                     aria-hidden="true"></span> Update</button>
               <?php } else { ?>
-                <button class="btn btn-default" type="submit" name="create"><span class="glyphicon glyphicon-plus"
-                    aria-hidden="true"></span> Create</button>
+                <button class="btn btn-default" type="submit" name="create" <?php echo ($_SESSION['access']==='S') ? 'disabled':''?>><span class="glyphicon glyphicon-plus"
+                    aria-hidden="true" ></span> Create</button>
               <?php } ?>
               <button class="btn btn-default" type="reset"><span class="glyphicon glyphicon-erase"
                   aria-hidden="true"></span> Clear</button>
@@ -150,7 +153,7 @@ Name: CHEOK KAH YEEK
           try {
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $stmt = $conn->prepare("SELECT * FROM tbl_staffs_a189479_pt2 LIMIT $start_from, $per_page");
+            $stmt = $conn->prepare("select * from tbl_staffs_a189479_pt2 LIMIT $start_from, $per_page");
             $stmt->execute();
             $result = $stmt->fetchAll();
           } catch (PDOException $e) {
@@ -185,7 +188,7 @@ Name: CHEOK KAH YEEK
                   role="button"> Edit </a>
                 <a href="staffs.php?delete=<?php echo $readrow['fld_staff_num']; ?>"
                   onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs"
-                  role="button">Delete</a>
+                  role="button" <?php echo ($_SESSION['access']==='S') ? 'style="display:none;"':''?>>Delete</a>
               </td>
             </tr>
             <?php
@@ -207,6 +210,7 @@ Name: CHEOK KAH YEEK
               $stmt->execute();
               $result = $stmt->fetchAll();
               $total_records = count($result);
+              $conn = null;
             } catch (PDOException $e) {
               echo "Error: " . $e->getMessage();
             }

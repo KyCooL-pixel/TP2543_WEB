@@ -2,6 +2,10 @@
 Matric Number: A189479
 Name: CHEOK KAH YEEK
 -->
+<?php
+include_once 'redirect.php';
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -23,7 +27,7 @@ Name: CHEOK KAH YEEK
     html {
       width: 100%;
       height: 100%;
-      background: url(logofull.jpg)  center center no-repeat;
+      background: url(logofull.jpg) center center no-repeat;
       background-size: cover;
       min-height: 100%;
     }
@@ -32,6 +36,16 @@ Name: CHEOK KAH YEEK
 
 <body>
   <?php include_once 'nav_bar.php'; ?>
+  <?php
+  if (isset($_SESSION['auth_error'])):
+    ?>
+    <div class="alert alert-danger" role="alert">
+      <?php
+      echo $_SESSION['auth_error'];
+      unset($_SESSION['auth_error']); // Clear the error message
+      ?>
+    </div>
+  <?php endif; ?>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->

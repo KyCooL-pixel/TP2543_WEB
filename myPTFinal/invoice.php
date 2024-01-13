@@ -1,5 +1,6 @@
 <?php
   include_once 'db.php';
+  include_once 'redirect.php';
 ?>
 <?php
 try {
@@ -62,10 +63,10 @@ $conn = null;
       </div>
       <div class="panel-body">
         <p>
-        Address 1 <br>
-        Address 2 <br>
-        Postcode City <br>
-        State <br>
+       20, Jalan Reko 1/3<br>
+        Taman Mutiara Reko<br>
+        Kajang,<br>
+        Selangor <br>
         </p>
       </div>
     </div>

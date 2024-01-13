@@ -1,5 +1,6 @@
 <?php
   include_once 'orders_details_crud.php';
+  include_once 'redirect.php';
 ?>
  
 <!DOCTYPE html>

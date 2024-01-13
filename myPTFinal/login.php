@@ -40,7 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Redirect to a secure page
             header("Location: index.php");
-            exit;
+            exit();
+        }
+        else{
+            // Invalid username or password
+            $errorMsg= "Invalid username or password.";
+            $_SESSION['error_message'] = $errorMsg;
+            header("Location: login_form.php");
         }
     } else {
         // Invalid username or password

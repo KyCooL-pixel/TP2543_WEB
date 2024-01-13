@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h2 class="mb-4">Login</h2>
+                <h2 class="mb-4" style="padding:10px;">Login</h2>
                 <?php
                 if (isset($_SESSION['error_message'])):
                     ?>
@@ -28,17 +28,19 @@
                     </div>
                 <?php endif; ?>
                 <form action="login.php" method="post">
-                    <div class="mb-3">
+                    <div class="mb-3"  style="padding:10px;">
                         <label for="username" class="form-label">Username:</label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3"  style="padding:10px;">
                         <label for="password" class="form-label">Password:</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    
+                    <div class="mb-3"  style="padding:10px;">
+                        <button type="submit" class="btn btn-primary mb-3">Login</button>
+                    </div>
                 </form>
             </div>
         </div>

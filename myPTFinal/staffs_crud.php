@@ -30,8 +30,8 @@ if (isset($_POST['create'])) {
     $phone = $_POST['phone'];
     $email = $_POST['email'];
     $level = $_POST['level'];
-    $password = $_POST['password'];
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $spassword = $_POST['password'];
+    $hashedPassword = password_hash($spassword, PASSWORD_DEFAULT);
 
          
     $stmt->execute();

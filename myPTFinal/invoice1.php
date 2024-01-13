@@ -1,5 +1,6 @@
 <?php
   include_once 'db.php';
+  include_once 'redirect.php';
 ?>
  
 <!DOCTYPE html>

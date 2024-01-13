@@ -1,6 +1,7 @@
 <?php
 include_once 'products_crud.php';
 include_once 'redirect.php';
+include_once 'auth_level.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +15,7 @@ include_once 'redirect.php';
   <title>My Bike Ordering System : Products</title>
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,7 +30,7 @@ include_once 'redirect.php';
   <?php include_once 'nav_bar.php'; ?>
 
   <div class="container-fluid">
-    <div class="row">
+    <div class="row" <?php echo ($_SESSION['access'] === 'N') ? 'style="display:none;"' : '' ?>>
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <div class="page-header">
           <h2>Create New Product</h2>
@@ -38,18 +40,16 @@ include_once 'redirect.php';
           <div class="form-group">
             <label for="productid" class="col-sm-3 control-label">ID</label>
             <div class="col-sm-9">
-              <input name="pid" type="text" class="form-control" id="productid" placeholder="Product ID"
-                value="<?php if (isset($_GET['edit']))
-                  echo $editrow['fld_product_num']; ?>" required>
+              <input name="pid" type="text" class="form-control" id="productid" placeholder="Product ID" value="<?php if (isset($_GET['edit']))
+                echo $editrow['fld_product_num']; ?>" required>
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="productname" class="col-sm-3 control-label">Name</label>
             <div class="col-sm-9">
-              <input name="name" type="text" class="form-control" id="productname" placeholder="Product Name"
-                value="<?php if (isset($_GET['edit']))
-                  echo $editrow['fld_product_name']; ?>" required>
+              <input name="name" type="text" class="form-control" id="productname" placeholder="Product Name" value="<?php if (isset($_GET['edit']))
+                echo $editrow['fld_product_name']; ?>" required>
             </div>
           </div>
           <div class="form-group">
@@ -57,8 +57,7 @@ include_once 'redirect.php';
             <div class="col-sm-9">
               <input name="price" type="number" class="form-control" id="productprice" placeholder="Product Price"
                 value="<?php if (isset($_GET['edit']))
-                  echo $editrow['fld_product_price']; ?>" min="0.0" step="0.01"
-                required>
+                  echo $editrow['fld_product_price']; ?>" min="0.0" step="0.01" required>
             </div>
           </div>
           <div class="form-group">
@@ -74,15 +73,15 @@ include_once 'redirect.php';
                   echo "selected"; ?>>Puma</option>
                 <option value="Adidas" <?php if (isset($_GET['edit'])) if ($editrow['fld_product_brand'] == "Yamaha")
                   echo "selected"; ?>>Adidas</option>
-                  <option value="Jordan" <?php if (isset($_GET['edit'])) if ($editrow['fld_product_brand'] == "Yamaha")
+                <option value="Jordan" <?php if (isset($_GET['edit'])) if ($editrow['fld_product_brand'] == "Yamaha")
                   echo "selected"; ?>>Jordan</option>
               </select>
             </div>
           </div>
           <div class="form-group">
-            <label for="productq" class="col-sm-3 control-label">Year Of Warranty</label>
+            <label for="productw" class="col-sm-3 control-label">Year Of Warranty</label>
             <div class="col-sm-9">
-              <input name="warranty" type="number" class="form-control" id="productq" placeholder="Year Of Warranty"
+              <input name="warranty" type="number" class="form-control" id="productw" placeholder="Year Of Warranty"
                 value="<?php if (isset($_GET['edit']))
                   echo $editrow['fld_product_warranty']; ?>" min="0" required>
             </div>
@@ -113,111 +112,144 @@ include_once 'redirect.php';
         </form>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-        <div class="page-header">
-          <h2>Products List</h2>
-        </div>
-        <table class="table table-striped table-bordered">
-          <tr>
-            <th>Product ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Brand</th>
-            <th></th>
-          </tr>
-          <?php
-          // Read
-          $per_page = 5;
-          if (isset($_GET["page"]))
-            $page = $_GET["page"];
-          else
-            $page = 1;
-          $start_from = ($page - 1) * $per_page;
-          try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $stmt = $conn->prepare("select * from tbl_products_a189479_pt2 LIMIT $start_from, $per_page");
-            $stmt->execute();
-            $result = $stmt->fetchAll();
-          } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-          }
-          foreach ($result as $readrow) {
-            ?>
-            <tr>
-              <td>
-                <?php echo $readrow['fld_product_num']; ?>
-              </td>
-              <td>
-                <?php echo $readrow['fld_product_name']; ?>
-              </td>
-              <td>
-                <?php echo $readrow['fld_product_price']; ?>
-              </td>
-              <td>
-                <?php echo $readrow['fld_product_brand']; ?>
-              </td>
-              <td>
-                <a href="products_details.php?pid=<?php echo $readrow['fld_product_num']; ?>"
-                  class="btn btn-warning btn-xs" role="button">Details</a>
-                <a href="products.php?edit=<?php echo $readrow['fld_product_num']; ?>" class="btn btn-success btn-xs"
-                  role="button"> Edit </a>
-                <a href="products.php?delete=<?php echo $readrow['fld_product_num']; ?>"
-                  onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs"
-                  role="button">Delete</a>
-              </td>
-            </tr>
-          <?php } ?>
+    <?php
+    try {
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $stmt = $conn->prepare("select fld_product_num,fld_product_name,fld_product_brand,fld_product_price from tbl_products_a189479_pt2 ");
+      $stmt->execute();
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $data = array();
 
+      foreach ($result as $readrow) {
+        $data[] = $readrow;
+      }
+      error_log(json_encode($data));
+    } catch (PDOException $e) {
+      echo "Error: " . $e->getMessage();
+    }
+    ?>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+
+    <link rel="stylesheet" type="text/css"
+      href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <div class='row'>
+
+      <div class="container mt-5">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+            <tr>
+              <th>Product ID</th>
+              <th>Name</th>
+              <th>Brand</th>
+              <th>Price</th>
+              <th class="exclude-columns"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            // Output table rows dynamically based on data
+            foreach ($data as $row) {
+              echo '<tr>';
+              foreach ($row as $value) {
+                echo '<td>' . $value . '</td>';
+              }
+              echo '             
+              <td class="exclude-columns">
+                  <a onclick="loadProductDetails(\'' . $row['fld_product_num'] . '\')"
+                     class="btn btn-warning btn-xs" role="button">Details</a>
+                  
+                  <a href="products.php?edit=' . $row['fld_product_num'] . '" class="btn btn-success btn-xs"
+                     role="button" ' . ($_SESSION['access'] === 'N' ? 'style="display:none;"' : '') . '>Edit</a>
+                  
+                  <a href="products.php?delete=' . $row['fld_product_num'] . '"
+                     onclick="return confirm(\'Are you sure to delete?\');" class="btn btn-danger btn-xs" role="button" ' . ($_SESSION['access'] === 'N' ? 'style="display:none;"' : '') . '>Delete</a>
+              </td>';
+
+              echo '</tr>';
+            }
+            ?>
+          </tbody>
         </table>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-        <nav>
-          <ul class="pagination">
-            <?php
-            try {
-              $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $stmt = $conn->prepare("SELECT * FROM tbl_products_a189479_pt2");
-              $stmt->execute();
-              $result = $stmt->fetchAll();
-              $total_records = count($result);
-            } catch (PDOException $e) {
-              echo "Error: " . $e->getMessage();
+  </div>
+  <!-- JavaScript to load product details dynamically -->
+  <script>
+    function loadProductDetails(pid) {
+      // Using jQuery to load content dynamically into the modal body
+      jQuery('#productDetailsContainer').load('products_details.php?pid=' + pid);
+      // Show the modal
+      jQuery('#productDetailsModal').modal('show');
+    }
+  </script>
+  <script>
+    $(document).ready(function () {
+
+      var table = $('#example').DataTable({
+        paging_type: 'full_numbers',
+        columnDefs: [{
+          targets: [3, 4],
+          searchable: false
+        }],
+        order: [
+          [1, "asc"]
+        ],
+        pageLength: 5,
+        lengthMenu: [
+          [5, 10, 20, 30, -1],
+          [5, 10, 20, 30, "All"]
+        ],
+        buttons: [
+       
+          {extend:'excel',
+            exportOptions: {
+              columns: ':visible:not(.exclude-columns)'
             }
-            $total_pages = ceil($total_records / $per_page);
-            ?>
-            <?php if ($page == 1) { ?>
-              <li class="disabled"><span aria-hidden="true">«</span></li>
-            <?php } else { ?>
-              <li><a href="products.php?page=<?php echo $page - 1 ?>" aria-label="Previous"><span
-                    aria-hidden="true">«</span></a></li>
-              <?php
-            }
-            for ($i = 1; $i <= $total_pages; $i++)
-              if ($i == $page)
-                echo "<li class=\"active\"><a href=\"products.php?page=$i\">$i</a></li>";
-              else
-                echo "<li><a href=\"products.php?page=$i\">$i</a></li>";
-            ?>
-            <?php if ($page == $total_pages) { ?>
-              <li class="disabled"><span aria-hidden="true">»</span></li>
-            <?php } else { ?>
-              <li><a href="products.php?page=<?php echo $page + 1 ?>" aria-label="Previous"><span
-                    aria-hidden="true">»</span></a></li>
-            <?php } ?>
-          </ul>
-        </nav>
+          }
+        ]
+      });
+      // Move Buttons container above DataTable
+      table.buttons().container()
+        .appendTo($('.dataTables_wrapper'))
+        .addClass('dt-buttons-bottom-right');
+
+    });
+  </script>
+  <!-- Modal container -->
+  <div class="modal fade" id="productDetailsModal" tabindex="-1" role="dialog"
+    aria-labelledby="productDetailsModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productDetailsModalLabel">Product Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+            onclick="window.location.reload();">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="productDetailsContainer">
+          <!-- Content will be dynamically loaded here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" style="" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.min.js"></script>
+
+
 
 </body>
 

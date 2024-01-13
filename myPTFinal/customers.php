@@ -1,5 +1,7 @@
 <?php
 include_once 'customers_crud.php';
+include_once 'redirect.php';
+include_once 'auth_level.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +17,7 @@ include_once 'customers_crud.php';
 <body>
   <?php include_once 'nav_bar.php'; ?>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row" <?php echo ($_SESSION['access']==='N') ? 'style="display:none;"':''?>>
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <div class="page-header">
           <h2>Create New Customer</h2>
@@ -137,12 +139,12 @@ include_once 'customers_crud.php';
               <td>
                 <?php echo $readrow['fld_customer_phone']; ?>
               </td>
-              <td>
+              <td <?php echo ($_SESSION['access']==='N') ? 'style="display: none"':''?>>
               <a href="customers.php?edit=<?php echo $readrow['fld_customer_num']; ?>" class="btn btn-success btn-xs"
                   role="button"> Edit </a>
                 <a href="customers.php?delete=<?php echo $readrow['fld_customer_num']; ?>"
                   onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs"
-                  role="button">Delete</a>
+                  role="button" >Delete</a>
               </td>
             </tr>
             <?php

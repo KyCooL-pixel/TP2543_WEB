@@ -25,7 +25,7 @@ if (session_status() == PHP_SESSION_NONE) {
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-            aria-expanded="false">Menu <span class="caret"></span></a>
+            aria-expanded="false">Menu</a>
           <ul class="dropdown-menu">
             <li><a href="products.php">Products</a></li>
             <li><a href="customers.php">Customers</a></li>
@@ -36,19 +36,22 @@ if (session_status() == PHP_SESSION_NONE) {
       </ul>
       <?php if (isset($_SESSION['full_name'])): ?>
         <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-            aria-expanded="false">Hi, <?php echo $_SESSION['full_name']; ?><span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <!-- <li><a href="#">Profile</a></li> -->
-            <li><a href="logout.php">Log Out</a></li>
-          </ul>
-        </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">
+              <?php echo $_SESSION['full_name']; ?>
+              <img src="profile.png" alt="Profile Picture" class="profile-pic" style="max-width: 25px; max-height: 25px; border-radius: 50%; margin-right: 5px;">
+            </a>
+            <ul class="dropdown-menu">
+              <!-- <li><a href="#">Profile</a></li> -->
+              <li><a href="logout.php">Log Out</a></li>
+            </ul>
+          </li>
         </ul>
       <?php else: ?>
         <ul class="nav navbar-nav navbar-right">
-        <li><a href="login_form.php">Login</a></li>
-      </ul>
+          <li><a href="login_form.php">Login</a></li>
+        </ul>
       <?php endif; ?>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

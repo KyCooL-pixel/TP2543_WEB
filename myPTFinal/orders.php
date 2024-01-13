@@ -1,5 +1,7 @@
 <?php
 include_once 'orders_crud.php';
+include_once 'redirect.php';
+include_once 'auth_level.php';
 ?>
 
 <!DOCTYPE html>
@@ -172,11 +174,11 @@ include_once 'orders_crud.php';
                 <a href="orders_details.php?oid=<?php echo $orderrow['fld_order_num']; ?>" class="btn btn-warning btn-xs"
                   role="button">Details</a>
                 <a href="orders.php?edit=<?php echo $orderrow['fld_order_num']; ?>" class="btn btn-success btn-xs"
-                  role="button">Edit</a>
+                  role="button" <?php echo ($_SESSION['access']==='N') ? 'style="display: none"':''?>>Edit</a>
                 <a href="orders.php?delete=<?php echo $orderrow['fld_order_num']; ?>"
                   onclick="return confirm('Are you sure to delete?');"
                   onclick="return confirm('Are you sure to delete?');" class="btn btn-danger btn-xs"
-                  role="button">Delete</a>
+                  role="button"<?php echo ($_SESSION['access']==='N') ? 'style="display: none"':''?>>Delete</a>
               </td>
             </tr>
             <?php
