@@ -212,8 +212,9 @@ include_once 'auth_level.php';
           [5, 10, 20, 30, "All"]
         ],
         buttons: [
-       
-          {extend:'excel',
+
+          {
+            extend: 'excel',
             exportOptions: {
               columns: ':visible:not(.exclude-columns)'
             }
@@ -234,8 +235,7 @@ include_once 'auth_level.php';
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="productDetailsModalLabel">Product Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-            onclick="window.location.reload();">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
