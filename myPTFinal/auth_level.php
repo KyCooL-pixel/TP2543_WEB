@@ -23,11 +23,13 @@ switch ($scriptFilename) {
             header("Location: index.php");
             exit();
         }
+
         break;
 
     case 'products.php':
     case 'productstest.php':
     // same as customers.php
+    case 'orders.php':
     case 'customers.php':
         if ($currentLevel == "Normal") {
             $_SESSION['access'] = 'N';
